@@ -44,8 +44,8 @@ class Board
         @grid.each.with_index do |row, idx|
             print "#{idx} "
             row.each do |tile| 
-                if tile.revealed
-                    print tile.value + " "
+                if tile.marked
+                    print "#{tile.value} "
                 else
                     print "_ "
                 end
@@ -54,9 +54,30 @@ class Board
         end
     end
 
+    def won
+        result = true
+        @grid.each do |row|
+            row.each do |tile|
+                if tile.value != "B" && !tile.marked
+                    result = false
+                end
+            end
+        end
+        result
+    end
+
+    def lost(position)
+        tile = @grid[position[0]][position[1]]
+        if tile.value == "B"
+            return true
+        end
+        false
+    end
+
+    def mark_guess(position)
+        tile = @grid[position[0]][position[1]]
+        tile.marked = true
+    end
+
+
 end
-
-#code for testing
-
-b = Board.new
-b.render
