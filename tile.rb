@@ -1,10 +1,11 @@
 class Tile
 
-    attr_accessor :value, :marked
+    attr_accessor :value, :guessed, :flagged
     
     def initialize(value=0)
         @value = value
-        @marked = false
+        @guessed = false
+        @flagged = false
     end
 
 end
