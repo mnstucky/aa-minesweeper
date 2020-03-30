@@ -79,11 +79,24 @@ class Board
     def mark_guess(position)
         tile = @grid[position[0]][position[1]]
         tile.guessed = true
+        self.cascade_tiles(position)
     end
 
     def mark_flag(position)
         tile = @grid[position[0]][position[1]]
         tile.flagged = true
+    end
+
+    def cascade_tiles(position)
+        idx1 = position[0]
+        idx2 = position[1]
+        (-1..1).each do |i|
+            (-1..1).each do |j|
+                if idx1+i >= 0 && idx1+i < 9 && idx2+j >= 0 && idx2+j < 9
+                    @grid[idx1+i][idx2+j].guessed = true if @grid[idx1+i][idx2+j].value == 0
+                end
+            end
+        end
     end
 
 end
